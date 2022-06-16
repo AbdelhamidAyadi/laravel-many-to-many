@@ -18,7 +18,9 @@ class TagSeeder extends Seeder
             ['label'=>'Health' , 'color'=>'Blue'],
             ['label'=>'Technology' , 'color'=>'Red'],
             ['label'=>'News' , 'color'=>'Purple'],
-            ['label'=>'Crypto' , 'color'=>'Brown'],
+            ['label'=>'Science' , 'color'=>'Brown'],
+            ['label'=>'Art' , 'color'=>'Rose'],
+            
         ];
 
         foreach ($tags as $tag) {
