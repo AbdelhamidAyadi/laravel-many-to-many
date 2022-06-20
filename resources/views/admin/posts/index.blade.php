@@ -33,7 +33,7 @@
             @endforelse
         </div>
         <div class="card-body">
-            <img class="mb-3 rounded" width="50%" src="{{$post->image}}" alt="" srcset="">
+            <img class="mb-3 rounded" width="50%" src="{{ asset("storage/$post->image")}}" alt="" srcset="">
             <p class="card-text">{{ $post->content }}</p>
             <a href="{{ route('admin.posts.show', $post->id ) }}" class="btn btn-primary"><i
                     class="fa-solid fa-circle-info"></i></a>
@@ -50,7 +50,7 @@
         </div>
     </div>
     @empty
-    <h2>There's no Posts.Create one!</h2>
+    <h2>There's no Posts. Create one!</h2>
     @endforelse
 </div>
 @section('scripts')

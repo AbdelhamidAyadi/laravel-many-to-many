@@ -36,10 +36,9 @@
 
         </div>
         @endforeach
-        <div class="form-group">
+        <div class="form-group mt-2">
             <label for="image">Image</label>
-            <input type="text" class="form-control" id="image" value="{{old('title',$post->image)}}" name="image"
-                placeholder="Image Url">
+            <input type="file" class="form-control-file" id="image" name="image">
         </div>
         <button type="submit" class="btn btn-success">Edit</button>
     </form>

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\Post;
 use App\Models\Tag;
 
@@ -49,6 +51,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
+        if (array_key_exists('image', $data)) {
+            $image_url = Storage::put('posts_images',$data['image']);
+            $data['image'] = $image_url ; 
+        }
 
         $new_post = New Post();
         $new_post->fill($data);
@@ -99,6 +106,13 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+        if (array_key_exists('image', $data)) {
+            if ($post->image) {
+               Storage::delete($post->image);
+            }
+            $image_url = Storage::put('posts_images',$data['image']);
+            $data['image'] = $image_url ; 
+        }
         $post->slug = Str::of($post->title)->slug('-');
         $post->update($data);
 
