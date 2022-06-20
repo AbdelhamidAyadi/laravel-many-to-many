@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <form action="{{ route('admin.posts.update', $post->id)}}" method="POST">
+    <form action="{{ route('admin.posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <div class="form-group">

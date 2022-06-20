@@ -10,6 +10,10 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PostCreationMail;
+
 use App\Models\Post;
 use App\Models\Tag;
 
@@ -51,6 +55,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $user = Auth::user();
 
         if (array_key_exists('image', $data)) {
             $image_url = Storage::put('posts_images',$data['image']);
@@ -65,6 +70,9 @@ class PostController extends Controller
         if ( array_key_exists('tags' , $data) ) {
             $new_post->tags()->attach($data['tags']);
         }
+
+        $mail = New PostCreationMail($new_post);
+        Mail::to($user->email)->send($mail);
 
         return redirect()->route('admin.posts.index');
 
@@ -132,6 +140,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+        
         return redirect()->route('admin.posts.index')->with('message', "The post: $post->title has been deleted with success!");
     }
 }
